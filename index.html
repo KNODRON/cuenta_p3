@@ -1,38 +1,243 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CUENTA P3 - WhatsApp</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CUENTA P.3 — Selección rápida</title>
+<style>
+:root{
+  --bg:#0b0f14; --card:#121821; --muted:#95a7bd; --text:#eef5fb;
+  --accent:#25D366; --accent-2:#3ea0ff; --border:#233244; --chip:#0f1620;
+}
+*{box-sizing:border-box} html,body{margin:0;background:var(--bg);color:var(--text);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Sans",Arial;}
+.container{max-width:960px;margin:0 auto;padding:20px 12px 60px;}
+.header{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px}
+.header h1{margin:0;font-size:clamp(20px,3vw,28px)}
+.muted{color:var(--muted)}
+.subtitle{margin:4px 0 14px;color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.toolbar .right{margin-left:auto;display:flex;gap:8px;align-items:center}
+#wa-number{background:#0e141c;color:var(--text);border:1px solid var(--border);border-radius:10px;padding:8px 10px;min-width:220px}
+.btn{appearance:none;border:1px solid var(--border);padding:8px 12px;border-radius:12px;font-weight:600;cursor:pointer}
+.btn-ghost{background:transparent;color:var(--text)}
+.btn-ghost:hover{border-color:#3b4a61}
+.btn-primary{background:var(--accent);color:#05210f;border-color:transparent}
+.btn-secondary{background:var(--accent-2);color:#07121f;border-color:transparent}
+.sections{display:grid;gap:12px}
+.section{border:1px solid var(--border);border-radius:12px;background:#0c141d}
+.section header{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--border)}
+.section h3{margin:0;font-size:16px}
+.section .sec-actions{display:flex;gap:8px}
+.list{display:grid}
+.item{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-top:1px solid var(--border);cursor:pointer}
+.item:first-child{border-top:none}
+.chk{width:22px;height:22px;flex:0 0 22px;margin-top:2px}
+.who{display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:inline-block;padding:2px 8px;border-radius:999px;background:#0b1626;border:1px solid #213249;color:#b8d0ea;font-size:12px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.label{display:block;margin:8px 0 6px;color:var(--muted)}
+.textarea{width:100%;min-height:34vh;background:#0e141c;color:var(--text);border:1px solid var(--border);border-radius:12px;padding:12px;font:14px/1.4 ui-monospace,Consolas,Menlo,monospace;white-space:pre}
+.counter{margin-left:6px;color:var(--muted);font-size:13px}
+.sticky-bar{position:sticky;top:0;background:rgba(11,15,20,.8);backdrop-filter:blur(6px);z-index:5;padding:6px 0;margin:-6px 0 8px}
+.sticky-bar .bar{display:flex;gap:8px;align-items:center}
+.hint{color:var(--muted);font-size:13px;margin-top:6px}
+.footer{margin-top:16px;text-align:center;color:var(--muted)}
+</style>
 </head>
 <body>
-  <main class="container">
-    <header class="header">
-      <h1>CUENTA P.3</h1>
-      <p class="subtitle">Listado listo para enviar por WhatsApp</p>
-    </header>
+<main class="container">
+  <div class="header">
+    <h1>CUENTA P.3</h1>
+    <small id="hoy" class="muted"></small>
+  </div>
+  <p class="subtitle">Marca como en tu CUENTA-DIARIA: toca el renglón para seleccionar/deseleccionar. Solo los marcados irán al reporte.</p>
 
-    <section class="card">
-      <label for="mensaje" class="label">Contenido</label>
-      <!-- Puedes editar el texto si necesitas corregir algo puntual -->
-      <textarea id="mensaje" class="textarea" spellcheck="false"></textarea>
-
-      <div class="actions">
-        <button id="btn-whatsapp" class="btn btn-primary">Enviar por WhatsApp</button>
-        <button id="btn-copiar" class="btn btn-ghost">Copiar texto</button>
+  <section class="card">
+    <div class="sticky-bar">
+      <div class="bar">
+        <button id="all-on"  class="btn btn-ghost">Seleccionar todo</button>
+        <button id="all-off" class="btn btn-ghost">Deseleccionar todo</button>
+        <span id="cont" class="counter">0 seleccionados</span>
+        <div class="right" style="margin-left:auto">
+          <span class="muted">Enviar a:</span>
+          <input id="wa-number" type="tel" placeholder="+56933700267 (opcional)">
+        </div>
       </div>
+    </div>
 
-      <p class="hint">
-        El botón abrirá WhatsApp con el texto tal cual aparece arriba. Puedes editarlo antes si lo necesitas.
-      </p>
-    </section>
+    <div id="sections" class="sections"></div>
 
-    <footer class="footer">
-      <small>Hecho para P.3 — <span id="hoy"></span></small>
-    </footer>
-  </main>
+    <div class="actions">
+      <button id="preview-btn" class="btn btn-secondary">Previsualizar</button>
+      <button id="send-btn" class="btn btn-primary">Enviar por WhatsApp</button>
+      <button id="copy-btn" class="btn btn-ghost">Copiar texto</button>
+    </div>
 
-  <script src="app.js"></script>
+    <label class="label" for="out">Mensaje a enviar</label>
+    <textarea id="out" class="textarea" placeholder="Aquí aparecerá el mensaje…"></textarea>
+    <p class="hint">Saludo automático: “Buenos días mi Coronel, depto. p.3: <hoy>”.</p>
+  </section>
+
+  <footer class="footer"><small>Hecho para P.3</small></footer>
+</main>
+
+<script>
+// ======= Datos (igual que tu listado) =======
+const DATA = [
+  { titulo:"PLANA MAYOR", personas:[
+    {grado:"TTE. CNEL. (I)", nombre:"KAREN NEUBAUER MEZA"},
+    {grado:"S.O.M (SEC.) LL. SS", nombre:"RICARDO QUILAQUEO MARTIN"},
+    {grado:"CARABINERO (A.O)", nombre:"CONSTANZA CATALAN ORTIZ"},
+    {grado:"C.P.R. (ARCHIVERO)", nombre:"HECTOR EPUÑAN MARTINEZ"},
+    {grado:"C.P.R. (ESTAFETA)", nombre:"VICTOR REBOLLEDO SALINAS"},
+  ]},
+  { titulo:"SECCIÓN COMISIONADOS INSTITUCIONALES", personas:[
+    {grado:"MAYOR (I)", nombre:"PATRICIO CONTRERAS SEVERINO"},
+    {grado:"CAPITÁN", nombre:"DANIELA MONJE GRANDJEAN"},
+    {grado:"SGTO. 1RO.", nombre:"FABIOLA SOTO ASTARGO"},
+    {grado:"CABO 2°", nombre:"NATALIA HUILCAMAN COILLA"},
+    {grado:"C.P.R.", nombre:"JORGE PIMIENTO ARIAS"},
+    {grado:"C.P.R.", nombre:"FRANCISCA MOYA ARMIJO"},
+    {grado:"C.P.R.", nombre:"ALEXIS MORALES SILVA"},
+    {grado:"SGTO. 2° (SEC.)", nombre:"LUIS LOVAZZANO FIGUEROA"},
+  ]},
+  { titulo:"SECCIÓN COMPRAS Y CONTROL PRESUPUESTARIO", personas:[
+    {grado:"CAPITÁN (I)", nombre:"MARILYN KLEIN HERNANDEZ"},
+    {grado:"SOM (LL. SS)", nombre:"FRANCISCO MARIN HENRIQUEZ"},
+    {grado:"SGTO. 2° (A.O)", nombre:"RODRIGO SEPULVEDA TORRES"},
+    {grado:"CABO 1RO (SEC)", nombre:"DAYNA CASTRO FERNANDEZ"},
+    {grado:"C.P.R.", nombre:"JOSÉ CARRASCO GONZÁLEZ"},
+  ]},
+  { titulo:"SECCIÓN GESTIÓN FINANCIERA", personas:[
+    {grado:"CAPITÁN (I)", nombre:"SLOMITH SERRANO BRIONES"},
+    {grado:"SOM (SEC.)", nombre:"INRRY BELTRAN CASTILLO"},
+    {grado:"SOM (LLSS)", nombre:"BOLIVAR CARRASCO CARRASCO"},
+    {grado:"SUBOF. (SEC.)", nombre:"MARIA BUSTOS MENDOZA"},
+    {grado:"SGTO. 1° (SEC.)", nombre:"VITALIA GARVIZO FUENTES"},
+    {grado:"SGTO. 1° (SEC.)", nombre:"JESSICA VARGAS SAN MARTIN"},
+    {grado:"SGTO. 1° (SEC.)", nombre:"DANIEL MARTINEZ GAETE"},
+    {grado:"SGTO. 2° (SEC)", nombre:"FRANCISCO GODOY RODRIGUEZ"},
+    {grado:"SGTO. 2° (AUX. CONT.)", nombre:"EVELYN SALAZAR ACEVEDO"},
+    {grado:"SGTO. 2°. (SEC.)", nombre:"SOLANGE JAUNEAUD RIOS"},
+    {grado:"CABO 1° (SEC.)", nombre:"KAROLL CIFUENTES VINET"},
+    {grado:"CABO 1° (SEC.)", nombre:"JEAN AGUILERA CORDERO"},
+    {grado:"C.P.R.", nombre:"EMILIO JELVES CAMPUSANO"},
+    {grado:"C.P.R.", nombre:"RICARDO ROA TAPIA"},
+    {grado:"C.P.R.", nombre:"ANGELICA BAEZA LARA"},
+    {grado:"C.P.R.", nombre:"TAVITA CARRASCO GUAJARDO"},
+    {grado:"C.P.R.", nombre:"ESTEBAN LIZAMA TORRES"},
+    {grado:"C.P.R.", nombre:"GUSTAVO GRANDON FLORES"},
+    {grado:"C.P.R.", nombre:"RICARDO FUENTES NUÑEZ"},
+    {grado:"C.P.R.", nombre:"MILDRED GAHONA CORTEZ"},
+    {grado:"C.P.R.", nombre:"MARIA SOTO MEDEL"},
+    {grado:"C.P.R.", nombre:"LISSETE CARVAJAL ALIAGA"},
+    {grado:"CABO 1°", nombre:"GRACIELA MARTINEZ BARCO"},
+  ]},
+  { titulo:"SECCIÓN PERSONAL LESIONADO EN ACTOS DEL SERVICIO", personas:[
+    {grado:"CAPITÁN", nombre:"JAVIERA MONTERO TOLEDO"},
+    {grado:"SGTO. 2° (A.O)", nombre:"LORENA SALDIAS PEÑA"},
+    {grado:"C.P.R.", nombre:"MARIA RAMIREZ CALDERON"},
+    {grado:"SGTO. 2°", nombre:"NICOLE GONZALEZ LEYTON"},
+  ]},
+];
+
+// ======= Utilidades =======
+const pad=n=>String(n).padStart(2,"0");
+const fechaHoy=()=>{const d=new Date();return `${pad(d.getDate())}-${pad(d.getMonth()+1)}-${d.getFullYear()}`};
+const saludo=()=>`Buenos días mi Coronel, depto. p.3: ${fechaHoy()}`;
+
+const $sections=document.getElementById("sections");
+const $out=document.getElementById("out");
+const $cont=document.getElementById("cont");
+document.getElementById("hoy").textContent=`Hoy: ${fechaHoy()}`;
+
+// Render de secciones y filas con checkbox
+function render(){
+  $sections.innerHTML="";
+  DATA.forEach((sec, idxS)=>{
+    const wrap=document.createElement("div"); wrap.className="section";
+    const head=document.createElement("header");
+    const h3=document.createElement("h3"); h3.textContent=sec.titulo;
+    const secActions=document.createElement("div"); secActions.className="sec-actions";
+    const bOn = Object.assign(document.createElement("button"),{className:"btn btn-ghost",textContent:"Seleccionar sección"});
+    const bOff= Object.assign(document.createElement("button"),{className:"btn btn-ghost",textContent:"Deseleccionar sección"});
+    head.appendChild(h3); secActions.appendChild(bOn); secActions.appendChild(bOff); head.appendChild(secActions);
+    const list=document.createElement("div"); list.className="list";
+
+    sec.personas.forEach((p, idx)=>{
+      const id=`s${idxS}i${idx}`;
+      const row=document.createElement("div"); row.className="item"; row.dataset.row="1";
+      const chk=document.createElement("input"); chk.type="checkbox"; chk.className="chk"; chk.id=id;
+      chk.dataset.seccion=sec.titulo; chk.dataset.grado=p.grado; chk.dataset.nombre=p.nombre;
+      const label=document.createElement("label"); label.htmlFor=id;
+      const who=document.createElement("div"); who.className="who";
+      const chipG=document.createElement("span"); chipG.className="chip"; chipG.textContent=p.grado;
+      const chipN=document.createElement("span"); chipN.className="chip"; chipN.textContent=p.nombre;
+      who.appendChild(chipG); who.appendChild(chipN); label.appendChild(who);
+      row.appendChild(chk); row.appendChild(label);
+      list.appendChild(row);
+    });
+
+    // Eventos por sección
+    bOn.addEventListener("click", ()=>{ list.querySelectorAll(".chk").forEach(c=>c.checked=true); update(); });
+    bOff.addEventListener("click", ()=>{ list.querySelectorAll(".chk").forEach(c=>c.checked=false); update(); });
+
+    // Tocar la fila marca/desmarca (como tu app)
+    list.addEventListener("click",(e)=>{
+      const row=e.target.closest(".item");
+      if(!row) return;
+      const cb=row.querySelector(".chk");
+      if(e.target!==cb){ cb.checked=!cb.checked; }
+      update();
+    });
+
+    wrap.appendChild(head); wrap.appendChild(list); $sections.appendChild(wrap);
+  });
+}
+
+function seleccion(){
+  return Array.from(document.querySelectorAll(".chk:checked")).map(c=>({
+    seccion:c.dataset.seccion, grado:c.dataset.grado, nombre:c.dataset.nombre
+  }));
+}
+function construirMensaje(sel){
+  if(!sel.length) return `${saludo()}\n\n(Sin personal seleccionado)`;
+  const porSeccion={};
+  sel.forEach(it=>{ (porSeccion[it.seccion] ||= []).push(it); });
+  let partes=[saludo(),""]; 
+  Object.entries(porSeccion).forEach(([sec,arr])=>{
+    partes.push(sec.toUpperCase());
+    arr.forEach(p=>partes.push(`${p.grado}\t${p.nombre}`));
+    partes.push("");
+  });
+  return partes.join("\n").trim();
+}
+function update(){
+  const sel=seleccion();
+  $cont.textContent = `${sel.length} seleccionados`;
+}
+
+// Botones globales
+document.getElementById("all-on").addEventListener("click",()=>{ document.querySelectorAll(".chk").forEach(c=>c.checked=true); update(); });
+document.getElementById("all-off").addEventListener("click",()=>{ document.querySelectorAll(".chk").forEach(c=>c.checked=false); update(); });
+
+document.getElementById("preview-btn").addEventListener("click",()=>{ $out.value=construirMensaje(seleccion()); });
+document.getElementById("copy-btn").addEventListener("click",async()=>{
+  if(!$out.value.trim()) $out.value=construirMensaje(seleccion());
+  try{ await navigator.clipboard.writeText($out.value); const b=document.getElementById("copy-btn"); b.textContent="¡Copiado!"; setTimeout(()=>b.textContent="Copiar texto",1200);}catch{}
+});
+document.getElementById("send-btn").addEventListener("click",()=>{
+  const msg = construirMensaje(seleccion());
+  const num = document.getElementById("wa-number").value.trim();
+  const base = num ? `https://wa.me/${num.replace(/\D/g,"")}` : "https://wa.me/";
+  const url  = `${base}?text=${encodeURIComponent(msg)}`;
+  window.open(url,"_blank","noopener,noreferrer");
+});
+
+// Init
+render(); update();
+</script>
 </body>
 </html>
