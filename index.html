@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CUENTA P3 - WhatsApp</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <h1>CUENTA P.3</h1>
+      <p class="subtitle">Listado listo para enviar por WhatsApp</p>
+    </header>
+
+    <section class="card">
+      <label for="mensaje" class="label">Contenido</label>
+      <!-- Puedes editar el texto si necesitas corregir algo puntual -->
+      <textarea id="mensaje" class="textarea" spellcheck="false"></textarea>
+
+      <div class="actions">
+        <button id="btn-whatsapp" class="btn btn-primary">Enviar por WhatsApp</button>
+        <button id="btn-copiar" class="btn btn-ghost">Copiar texto</button>
+      </div>
+
+      <p class="hint">
+        El botón abrirá WhatsApp con el texto tal cual aparece arriba. Puedes editarlo antes si lo necesitas.
+      </p>
+    </section>
+
+    <footer class="footer">
+      <small>Hecho para P.3 — <span id="hoy"></span></small>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
