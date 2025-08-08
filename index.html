@@ -6,41 +6,133 @@
 <title>CUENTA P.3 — Selección rápida</title>
 <style>
 :root{
-  --bg:#0b0f14; --card:#121821; --muted:#95a7bd; --text:#eef5fb;
-  --accent:#25D366; --accent-2:#3ea0ff; --border:#233244; --chip:#0f1620;
+  --bg:#0b0f0c;             /* Fondo oscuro verdoso */
+  --card:#122017;           /* Tarjeta verde oscuro */
+  --muted:#a7b7a3;          /* Texto secundario gris verdoso */
+  --text:#f0f5ef;           /* Texto principal blanco suave */
+  --accent:#4B8B3B;         /* Verde institucional */
+  --accent-press:#3c712f;   /* Verde más oscuro al presionar */
+  --accent-2:#6FAF5B;       /* Verde claro p/ secundario */
+  --border:#2c3a2c;         /* Bordes verdosos oscuros */
+  --chip:#1a281e;           /* Chips/etiquetas */
 }
-*{box-sizing:border-box} html,body{margin:0;background:var(--bg);color:var(--text);
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Sans",Arial;}
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Noto Sans",Arial;
+}
 .container{max-width:960px;margin:0 auto;padding:20px 12px 60px;}
 .header{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:10px}
 .header h1{margin:0;font-size:clamp(20px,3vw,28px)}
 .muted{color:var(--muted)}
 .subtitle{margin:4px 0 14px;color:var(--muted)}
-.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px}
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:14px;
+}
 .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
 .toolbar .right{margin-left:auto;display:flex;gap:8px;align-items:center}
-#wa-number{background:#0e141c;color:var(--text);border:1px solid var(--border);border-radius:10px;padding:8px 10px;min-width:220px}
-.btn{appearance:none;border:1px solid var(--border);padding:8px 12px;border-radius:12px;font-weight:600;cursor:pointer}
-.btn-ghost{background:transparent;color:var(--text)}
-.btn-ghost:hover{border-color:#3b4a61}
-.btn-primary{background:var(--accent);color:#05210f;border-color:transparent}
-.btn-secondary{background:var(--accent-2);color:#07121f;border-color:transparent}
+#wa-number{
+  background:#0f1b14;
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:8px 10px;
+  min-width:220px
+}
+.btn{
+  appearance:none;
+  border:1px solid var(--border);
+  padding:8px 12px;
+  border-radius:12px;
+  font-weight:600;
+  cursor:pointer
+}
+.btn-ghost{
+  background:transparent;
+  color:var(--text)
+}
+.btn-ghost:hover{
+  border-color:#4B8B3B
+}
+.btn-primary{
+  background:var(--accent);
+  color:#fff;
+  border-color:transparent
+}
+.btn-primary:active{
+  transform:translateY(1px);
+  background:var(--accent-press)
+}
+.btn-secondary{
+  background:var(--accent-2);
+  color:#0b0f0c;
+  border-color:transparent
+}
 .sections{display:grid;gap:12px}
-.section{border:1px solid var(--border);border-radius:12px;background:#0c141d}
-.section header{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--border)}
+.section{
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#162418
+}
+.section header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  padding:10px 12px;
+  border-bottom:1px solid var(--border)
+}
 .section h3{margin:0;font-size:16px}
 .section .sec-actions{display:flex;gap:8px}
 .list{display:grid}
-.item{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-top:1px solid var(--border);cursor:pointer}
+.item{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  padding:10px 12px;
+  border-top:1px solid var(--border);
+  cursor:pointer
+}
 .item:first-child{border-top:none}
 .chk{width:22px;height:22px;flex:0 0 22px;margin-top:2px}
 .who{display:flex;gap:8px;flex-wrap:wrap}
-.chip{display:inline-block;padding:2px 8px;border-radius:999px;background:#0b1626;border:1px solid #213249;color:#b8d0ea;font-size:12px}
+.chip{
+  display:inline-block;
+  padding:2px 8px;
+  border-radius:999px;
+  background:#203222;
+  border:1px solid #4B8B3B;
+  color:#d5e5d1;
+  font-size:12px
+}
 .actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
 .label{display:block;margin:8px 0 6px;color:var(--muted)}
-.textarea{width:100%;min-height:34vh;background:#0e141c;color:var(--text);border:1px solid var(--border);border-radius:12px;padding:12px;font:14px/1.4 ui-monospace,Consolas,Menlo,monospace;white-space:pre}
+.textarea{
+  width:100%;
+  min-height:34vh;
+  background:#0f1b14;
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px;
+  font:14px/1.4 ui-monospace,Consolas,Menlo,monospace;
+  white-space:pre
+}
 .counter{margin-left:6px;color:var(--muted);font-size:13px}
-.sticky-bar{position:sticky;top:0;background:rgba(11,15,20,.8);backdrop-filter:blur(6px);z-index:5;padding:6px 0;margin:-6px 0 8px}
+.sticky-bar{
+  position:sticky;
+  top:0;
+  background:rgba(18,32,23,.9);
+  backdrop-filter:blur(6px);
+  z-index:5;
+  padding:6px 0;
+  margin:-6px 0 8px
+}
 .sticky-bar .bar{display:flex;gap:8px;align-items:center}
 .hint{color:var(--muted);font-size:13px;margin-top:6px}
 .footer{margin-top:16px;text-align:center;color:var(--muted)}
@@ -52,18 +144,16 @@
     <h1>CUENTA P.3</h1>
     <small id="hoy" class="muted"></small>
   </div>
-  <p class="subtitle">Marca como en tu CUENTA-DIARIA: toca el renglón para seleccionar/deseleccionar. Solo los marcados irán al reporte.</p>
+  <p class="subtitle">Solo los marcados irán al reporte.</p>
 
   <section class="card">
-    <div class="sticky-bar">
-      <div class="bar">
-        <button id="all-on"  class="btn btn-ghost">Seleccionar todo</button>
-        <button id="all-off" class="btn btn-ghost">Deseleccionar todo</button>
-        <span id="cont" class="counter">0 seleccionados</span>
-        <div class="right" style="margin-left:auto">
-          <span class="muted">Enviar a:</span>
-          <input id="wa-number" type="tel" placeholder="+56933700267 (opcional)">
-        </div>
+    <div class="toolbar">
+      <button id="all-on"  class="btn btn-ghost">Seleccionar todo</button>
+      <button id="all-off" class="btn btn-ghost">Deseleccionar todo</button>
+      <span id="cont" class="counter">0 seleccionados</span>
+      <div class="right">
+        <span class="muted">Enviar a:</span>
+        <input id="wa-number" type="tel" placeholder="+56933700267 (opcional)">
       </div>
     </div>
 
@@ -77,14 +167,14 @@
 
     <label class="label" for="out">Mensaje a enviar</label>
     <textarea id="out" class="textarea" placeholder="Aquí aparecerá el mensaje…"></textarea>
-    <p class="hint">Saludo automático: “Buenos días mi Coronel, depto. p.3: <hoy>”.</p>
+    <p class="hint">Saludo automático: “Buenos días mi Coronel, depto. P.3: &lt;hoy&gt;”.</p>
   </section>
 
-  <footer class="footer"><small>Hecho para P.3</small></footer>
+  <footer class="footer"><small>Depto. P.3</small></footer>
 </main>
 
 <script>
-// ======= Datos (igual que tu listado) =======
+// ======= Datos (tu listado) ==============================================
 const DATA = [
   { titulo:"PLANA MAYOR", personas:[
     {grado:"TTE. CNEL. (I)", nombre:"KAREN NEUBAUER MEZA"},
@@ -143,17 +233,17 @@ const DATA = [
   ]},
 ];
 
-// ======= Utilidades =======
+// ======= Utilidades ======================================================
 const pad=n=>String(n).padStart(2,"0");
 const fechaHoy=()=>{const d=new Date();return `${pad(d.getDate())}-${pad(d.getMonth()+1)}-${d.getFullYear()}`};
 const saludo=()=>`Buenos días mi Coronel, depto. p.3: ${fechaHoy()}`;
+document.getElementById("hoy").textContent=`Hoy: ${fechaHoy()}`;
 
 const $sections=document.getElementById("sections");
 const $out=document.getElementById("out");
 const $cont=document.getElementById("cont");
-document.getElementById("hoy").textContent=`Hoy: ${fechaHoy()}`;
 
-// Render de secciones y filas con checkbox
+// Render UI
 function render(){
   $sections.innerHTML="";
   DATA.forEach((sec, idxS)=>{
@@ -168,7 +258,7 @@ function render(){
 
     sec.personas.forEach((p, idx)=>{
       const id=`s${idxS}i${idx}`;
-      const row=document.createElement("div"); row.className="item"; row.dataset.row="1";
+      const row=document.createElement("div"); row.className="item";
       const chk=document.createElement("input"); chk.type="checkbox"; chk.className="chk"; chk.id=id;
       chk.dataset.seccion=sec.titulo; chk.dataset.grado=p.grado; chk.dataset.nombre=p.nombre;
       const label=document.createElement("label"); label.htmlFor=id;
@@ -184,7 +274,7 @@ function render(){
     bOn.addEventListener("click", ()=>{ list.querySelectorAll(".chk").forEach(c=>c.checked=true); update(); });
     bOff.addEventListener("click", ()=>{ list.querySelectorAll(".chk").forEach(c=>c.checked=false); update(); });
 
-    // Tocar la fila marca/desmarca (como tu app)
+    // Tocar fila marca/desmarca
     list.addEventListener("click",(e)=>{
       const row=e.target.closest(".item");
       if(!row) return;
@@ -219,15 +309,19 @@ function update(){
   $cont.textContent = `${sel.length} seleccionados`;
 }
 
-// Botones globales
+// Global actions
 document.getElementById("all-on").addEventListener("click",()=>{ document.querySelectorAll(".chk").forEach(c=>c.checked=true); update(); });
 document.getElementById("all-off").addEventListener("click",()=>{ document.querySelectorAll(".chk").forEach(c=>c.checked=false); update(); });
 
 document.getElementById("preview-btn").addEventListener("click",()=>{ $out.value=construirMensaje(seleccion()); });
+
 document.getElementById("copy-btn").addEventListener("click",async()=>{
   if(!$out.value.trim()) $out.value=construirMensaje(seleccion());
-  try{ await navigator.clipboard.writeText($out.value); const b=document.getElementById("copy-btn"); b.textContent="¡Copiado!"; setTimeout(()=>b.textContent="Copiar texto",1200);}catch{}
+  try{ await navigator.clipboard.writeText($out.value);
+       const b=document.getElementById("copy-btn"); b.textContent="¡Copiado!"; setTimeout(()=>b.textContent="Copiar texto",1200);
+  }catch{}
 });
+
 document.getElementById("send-btn").addEventListener("click",()=>{
   const msg = construirMensaje(seleccion());
   const num = document.getElementById("wa-number").value.trim();
